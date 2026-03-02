@@ -1,0 +1,91 @@
+# -----------------------------
+# OS / editor noise
+# -----------------------------
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# IntelliJ / VS Code
+.idea/
+*.iml
+.vscode/
+
+# -----------------------------
+# Secrets / local env files
+# -----------------------------
+.env
+.env.*
+*.local
+secrets/
+
+# -----------------------------
+# Logs / runtime output
+# -----------------------------
+logs/
+*.log
+*.out
+*.pid
+
+# -----------------------------
+# Java / Maven
+# -----------------------------
+**/target/
+**/.mvn/wrapper/maven-wrapper.jar
+
+# -----------------------------
+# Go
+# -----------------------------
+**/bin/
+**/dist/
+**/coverage.out
+**/*.test
+
+# -----------------------------
+# Python
+# -----------------------------
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+.nox/
+.coverage
+htmlcov/
+.venv/
+venv/
+
+# -----------------------------
+# Terraform / IaC local state
+# -----------------------------
+**/.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# -----------------------------
+# Docker / compose overrides
+# -----------------------------
+docker-compose.override.yml
+
+# -----------------------------
+# Generated artifacts / datasets
+# Keep placeholders if used.
+# -----------------------------
+data/historical/*
+!data/historical/.gitkeep
+data/models/*
+!data/models/.gitkeep
+
+# -----------------------------
+# Build generators
+# -----------------------------
+contracts/proto/gen/
+contracts/events/gen/

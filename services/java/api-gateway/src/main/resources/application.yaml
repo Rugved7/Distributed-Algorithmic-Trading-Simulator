@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: api-gateway
+  main:
+    web-application-type: reactive
+
+server:
+  port: ${SERVER_PORT:8080}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+logging:
+  level:
+    root: INFO
+  pattern:
+    console: "{\"timestamp\":\"%d{yyyy-MM-dd'T'HH:mm:ss.SSSXXX}\",\"level\":\"%p\",\"service\":\"api-gateway\",\"trace\":\"%X{traceId:-}\",\"message\":\"%m\"}%n"
+
+# Placeholder routing config for later phases
+gateway:
+  routes: []
