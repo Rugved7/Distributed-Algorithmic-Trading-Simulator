@@ -16,7 +16,15 @@ rm -rf gen/java gen/go gen/python
 mkdir -p gen/java gen/go gen/python
 
 buf lint
-buf breaking --against '.git#branch=main' || true
+
+# Compare against local main branch when available.
+# Use contracts subdir (module root for buf.yaml), not contracts/proto.
+if git -C "$ROOT_DIR" rev-parse --verify main >/dev/null 2>&1; then
+  buf breaking --against "$ROOT_DIR/.git#branch=main,subdir=contracts"
+else
+  echo "info: skipping buf breaking check (local 'main' branch not found)"
+fi
+
 buf generate
 
 echo "Proto generation complete:"

@@ -17,22 +17,33 @@ spring:
   kafka:
     bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
     client-id: ${KAFKA_CLIENT_ID:strategy-service}
+    consumer:
+      group-id: ${KAFKA_GROUP_ID:strategy-service}
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+    producer:
+      acks: all
+      retries: 5
+      properties:
+        enable.idempotence: true
 
 server:
   port: ${SERVER_PORT:8082}
+
+grpc:
+  server:
+    port: ${GRPC_SERVER_PORT:9092}
+
+topics:
+  strategy-triggered: ${TOPIC_STRATEGY_TRIGGERED:strategy-triggered}
+  ai-analysis-requested: ${TOPIC_AI_ANALYSIS_REQUESTED:ai-analysis-requested}
 
 management:
   endpoints:
     web:
       exposure:
         include: health,info,metrics,prometheus
-  endpoint:
-    health:
-      probes:
-        enabled: true
 
 logging:
   level:
     root: INFO
-  pattern:
-    console: '{"timestamp":"%d{yyyy-MM-dd''T''HH:mm:ss.SSSXXX}","level":"%p","service":"strategy-service","trace":"%X{traceId:-}","message":"%m"}%n'
