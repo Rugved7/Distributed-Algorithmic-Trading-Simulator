@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "backtest-completed",
+  "type": "object",
+  "required": ["metadata", "backtestId", "strategyId", "symbol", "pnl", "sharpeRatio", "maxDrawdown", "completedAt"],
+  "properties": {
+    "metadata": { "$ref": "./_event_metadata.schema.json" },
+    "backtestId": { "type": "string" },
+    "strategyId": { "type": "string" },
+    "symbol": { "type": "string" },
+    "pnl": { "type": "number" },
+    "sharpeRatio": { "type": "number" },
+    "maxDrawdown": { "type": "number" },
+    "completedAt": { "type": "string", "format": "date-time" }
+  },
+  "additionalProperties": false
+}

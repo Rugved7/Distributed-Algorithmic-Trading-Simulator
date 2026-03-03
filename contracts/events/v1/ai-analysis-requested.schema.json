@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ai-analysis-requested",
+  "type": "object",
+  "required": ["metadata", "analysisRequestId", "strategyId", "portfolioId", "requestedAt"],
+  "properties": {
+    "metadata": { "$ref": "./_event_metadata.schema.json" },
+    "analysisRequestId": { "type": "string" },
+    "strategyId": { "type": "string" },
+    "portfolioId": { "type": "string" },
+    "requestedAt": { "type": "string", "format": "date-time" },
+    "features": { "type": "object", "additionalProperties": true }
+  },
+  "additionalProperties": false
+}

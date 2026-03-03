@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "market-tick",
+  "type": "object",
+  "required": ["metadata", "symbol", "tickTs", "price", "volume"],
+  "properties": {
+    "metadata": { "$ref": "./_event_metadata.schema.json" },
+    "symbol": { "type": "string" },
+    "tickTs": { "type": "string", "format": "date-time" },
+    "price": { "type": "number", "exclusiveMinimum": 0 },
+    "volume": { "type": "integer", "minimum": 0 }
+  },
+  "additionalProperties": false
+}

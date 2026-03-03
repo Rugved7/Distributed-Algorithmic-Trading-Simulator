@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "strategy-triggered",
+  "type": "object",
+  "required": ["metadata", "strategyId", "symbol", "signal", "triggerTs"],
+  "properties": {
+    "metadata": { "$ref": "./_event_metadata.schema.json" },
+    "strategyId": { "type": "string" },
+    "symbol": { "type": "string" },
+    "signal": { "type": "string", "enum": ["BUY", "SELL", "HOLD"] },
+    "triggerTs": { "type": "string", "format": "date-time" },
+    "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://trading.local/schemas/v1/event-metadata.schema.json",
+  "title": "EventMetadata",
+  "type": "object",
+  "required": ["eventId", "schemaVersion", "occurredAt", "sourceService", "partitionKey", "idempotencyKey"],
+  "properties": {
+    "eventId": { "type": "string", "minLength": 1 },
+    "schemaVersion": { "type": "string", "const": "v1" },
+    "occurredAt": { "type": "string", "format": "date-time" },
+    "sourceService": { "type": "string", "minLength": 1 },
+    "traceId": { "type": "string" },
+    "partitionKey": { "type": "string", "minLength": 1 },
+    "idempotencyKey": { "type": "string", "minLength": 1 }
+  },
+  "additionalProperties": false
+}

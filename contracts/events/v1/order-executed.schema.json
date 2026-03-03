@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "order-executed",
+  "type": "object",
+  "required": ["metadata", "orderId", "tradeId", "symbol", "side", "executedQty", "executedPrice", "executedAt"],
+  "properties": {
+    "metadata": { "$ref": "./_event_metadata.schema.json" },
+    "orderId": { "type": "string" },
+    "tradeId": { "type": "string" },
+    "symbol": { "type": "string" },
+    "side": { "type": "string", "enum": ["BUY", "SELL"] },
+    "executedQty": { "type": "integer", "minimum": 1 },
+    "executedPrice": { "type": "number", "exclusiveMinimum": 0 },
+    "executedAt": { "type": "string", "format": "date-time" }
+  },
+  "additionalProperties": false
+}

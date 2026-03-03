@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "order-submitted",
+  "type": "object",
+  "required": ["metadata", "orderId", "strategyId", "portfolioId", "symbol", "side", "orderType", "quantity", "submittedAt"],
+  "properties": {
+    "metadata": { "$ref": "./_event_metadata.schema.json" },
+    "orderId": { "type": "string" },
+    "strategyId": { "type": "string" },
+    "portfolioId": { "type": "string" },
+    "symbol": { "type": "string" },
+    "side": { "type": "string", "enum": ["BUY", "SELL"] },
+    "orderType": { "type": "string", "enum": ["MARKET", "LIMIT"] },
+    "quantity": { "type": "integer", "minimum": 1 },
+    "limitPrice": { "type": "number", "exclusiveMinimum": 0 },
+    "submittedAt": { "type": "string", "format": "date-time" }
+  },
+  "additionalProperties": false
+}

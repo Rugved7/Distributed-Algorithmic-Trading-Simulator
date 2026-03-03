@@ -1,0 +1,135 @@
+syntax = "proto3";
+
+package trading.v1;
+
+import "v1/common.proto";
+
+option java_multiple_files = true;
+option java_package = "com.trading.contracts.v1";
+option go_package = "github.com/trading/contracts/gen/go/v1;tradingv1";
+
+// -------- Auth --------
+service AuthService {
+  rpc ValidateToken(ValidateTokenRequest) returns (ValidateTokenResponse);
+}
+
+message ValidateTokenRequest {
+  RequestContext ctx = 1;
+  string bearer_token = 2;
+}
+
+message ValidateTokenResponse {
+  bool valid = 1;
+  string user_id = 2;
+  repeated string roles = 3;
+}
+
+// -------- Strategy --------
+service StrategyService {
+  rpc GetStrategy(GetStrategyRequest) returns (GetStrategyResponse);
+}
+
+message GetStrategyRequest {
+  RequestContext ctx = 1;
+  string strategy_id = 2;
+}
+
+message GetStrategyResponse {
+  string strategy_id = 1;
+  string user_id = 2;
+  string name = 3;
+  string type = 4; // SMA, RSI, etc.
+  string status = 5; // ACTIVE, PAUSED, DRAFT
+  map<string, string> parameters = 6;
+}
+
+// -------- Backtesting --------
+service BacktestingService {
+  rpc StartBacktest(StartBacktestRequest) returns (StartBacktestResponse);
+  rpc GetBacktest(GetBacktestRequest) returns (GetBacktestResponse);
+}
+
+message StartBacktestRequest {
+  RequestContext ctx = 1;
+  string strategy_id = 2;
+  string symbol = 3;
+  string from_date = 4; // YYYY-MM-DD
+  string to_date = 5;   // YYYY-MM-DD
+  double initial_capital = 6;
+}
+
+message StartBacktestResponse {
+  string backtest_id = 1;
+  string status = 2; // QUEUED, RUNNING
+}
+
+message GetBacktestRequest {
+  RequestContext ctx = 1;
+  string backtest_id = 2;
+}
+
+message GetBacktestResponse {
+  string backtest_id = 1;
+  string strategy_id = 2;
+  string status = 3;
+  double pnl = 4;
+  double sharpe_ratio = 5;
+  double max_drawdown = 6;
+}
+
+// -------- Order Matching --------
+service OrderMatchingService {
+  rpc SubmitOrder(SubmitOrderRequest) returns (SubmitOrderResponse);
+  rpc CancelOrder(CancelOrderRequest) returns (CancelOrderResponse);
+}
+
+message SubmitOrderRequest {
+  RequestContext ctx = 1;
+  string strategy_id = 2;
+  string portfolio_id = 3;
+  string symbol = 4;
+  string side = 5; // BUY, SELL
+  string order_type = 6; // LIMIT, MARKET
+  int64 quantity = 7;
+  double limit_price = 8;
+}
+
+message SubmitOrderResponse {
+  string order_id = 1;
+  string status = 2; // ACCEPTED, REJECTED
+}
+
+message CancelOrderRequest {
+  RequestContext ctx = 1;
+  string order_id = 2;
+}
+
+message CancelOrderResponse {
+  string order_id = 1;
+  string status = 2; // CANCELLED, NOT_FOUND
+}
+
+// -------- Portfolio --------
+service PortfolioService {
+  rpc GetPortfolio(GetPortfolioRequest) returns (GetPortfolioResponse);
+}
+
+message GetPortfolioRequest {
+  RequestContext ctx = 1;
+  string portfolio_id = 2;
+}
+
+message Position {
+  string symbol = 1;
+  int64 net_quantity = 2;
+  double avg_price = 3;
+  double mtm = 4;
+}
+
+message GetPortfolioResponse {
+  string portfolio_id = 1;
+  string user_id = 2;
+  Money cash = 3;
+  repeated Position positions = 4;
+  double total_equity = 5;
+}

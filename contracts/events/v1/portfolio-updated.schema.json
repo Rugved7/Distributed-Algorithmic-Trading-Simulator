@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "portfolio-updated",
+  "type": "object",
+  "required": ["metadata", "portfolioId", "userId", "totalEquity", "updatedAt"],
+  "properties": {
+    "metadata": { "$ref": "./_event_metadata.schema.json" },
+    "portfolioId": { "type": "string" },
+    "userId": { "type": "string" },
+    "cash": { "type": "number" },
+    "totalEquity": { "type": "number" },
+    "updatedAt": { "type": "string", "format": "date-time" }
+  },
+  "additionalProperties": false
+}

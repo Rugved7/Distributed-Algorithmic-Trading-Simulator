@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package trading.v1;
+
+option java_multiple_files = true;
+option java_package = "com.trading.contracts.v1";
+option go_package = "github.com/trading/contracts/gen/go/v1;tradingv1";
+
+message RequestContext {
+  string request_id = 1;
+  string user_id = 2;
+  string trace_id = 3;
+  string source_service = 4;
+}
+
+message Money {
+  string currency = 1; // ISO 4217, e.g. USD
+  double amount = 2;
+}
+
+message PageRequest {
+  int32 page = 1;
+  int32 size = 2;
+}
+
+message PageResponse {
+  int64 total = 1;
+  int32 page = 2;
+  int32 size = 3;
+}
